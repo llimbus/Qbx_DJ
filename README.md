@@ -180,7 +180,39 @@ Nenhuma dependência externa necessária! O sistema é totalmente standalone.
 
 ## 🗺️ Roadmap
 
+### 🔥 Próxima Versão (v0.2.0) - Em Desenvolvimento
+
+#### Melhorias nos Efeitos de Luzes e Visuais
+Estamos trabalhando em uma grande atualização do sistema de efeitos visuais:
+
+- **Efeitos de Luz Aprimorados**
+  - Strobes sincronizados com batidas (flash no beat)
+  - Lasers com múltiplos padrões (circular, linear, cruzado)
+  - Spotlights com movimento automático
+  - LED walls com animações customizáveis
+  - Efeitos de neon e UV lights mais realistas
+
+- **Novos Efeitos Atmosféricos**
+  - Fog machine com densidade ajustável
+  - Smoke bursts sincronizados com drops
+  - Particle effects otimizados
+  - Projeções de luz colorida nas paredes
+  - Reflexos e iluminação ambiente dinâmica
+
+- **Sincronização Musical Melhorada**
+  - Detecção automática de drops e builds
+  - Efeitos que respondem à intensidade da música
+  - Padrões de luz baseados em frequências (graves, médios, agudos)
+  - Transições suaves entre diferentes estados de iluminação
+
+- **Performance Otimizada**
+  - Sistema de LOD (Level of Detail) para efeitos distantes
+  - Culling inteligente de efeitos não visíveis
+  - Redução de lag em eventos com muitos jogadores
+  - Cache de configurações de efeitos
+
 ### Alta Prioridade
+- [ ] Sistema de efeitos visuais v2.0 (em desenvolvimento)
 - [ ] Hotkeys (F5-F12) para controles rápidos
 - [ ] Efeitos de som (airhorn, scratch, bass drop)
 - [ ] Interface melhorada (discos giram, VU meters)
@@ -188,9 +220,9 @@ Nenhuma dependência externa necessária! O sistema é totalmente standalone.
 
 ### Média Prioridade
 - [ ] Controles avançados (pitch, cue points, loop)
-- [ ] Mais efeitos visuais (fog, lasers avançados)
 - [ ] Sistema de eventos (agendar, convites)
-- [ ] Performance e otimização
+- [ ] NPCs dançando (crowd simulation)
+- [ ] Ambiente e decoração avançados
 
 ### Baixa Prioridade
 - [ ] Sistema econômico (cobrar entrada, pagar DJs)
@@ -198,7 +230,7 @@ Nenhuma dependência externa necessária! O sistema é totalmente standalone.
 - [ ] Modos especiais (automático, karaokê, battle)
 - [ ] Comunidade (Discord, competições)
 
-Veja o [TODO.md](TODO.md) completo para mais detalhes.
+Veja o [ROADMAP.md](ROADMAP.md) e [TODO.md](TODO.md) completos para mais detalhes.
 
 ## 📝 Changelog
 
