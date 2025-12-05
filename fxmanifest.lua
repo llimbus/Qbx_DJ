@@ -1,7 +1,7 @@
 fx_version 'cerulean'
 game 'gta5'
 
-author 'Antigravity'
+author 'llimbus'
 description 'Immersive DJ Job Script'
 version '0.1.0'
 
@@ -13,5 +13,12 @@ files {
     'html/script.js'
 }
 
-client_script 'client.lua'
+-- Arquivos de efeitos visuais (carregados primeiro)
+client_scripts {
+    'effects_core.lua',      -- CORE: Variáveis globais e funções auxiliares (PRIMEIRO!)
+    'effects_lights.lua',    -- Stage Lights
+    'effects_lasers.lua',    -- Lasers
+    'client.lua'             -- Código principal (ÚLTIMO!)
+}
+
 server_script 'server.lua'
