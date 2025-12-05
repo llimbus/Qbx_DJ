@@ -1,45 +1,54 @@
 # Pull Request
 
-## 📋 Descrição
-Descreva suas mudanças em detalhes.
+## 📝 Descrição
 
-## 🔗 Issue Relacionada
-Fixes #(issue)
+Descreva suas mudanças aqui.
 
 ## 🎯 Tipo de Mudança
-- [ ] 🐛 Bug fix (mudança que corrige um issue)
-- [ ] ✨ Nova funcionalidade (mudança que adiciona funcionalidade)
-- [ ] 💥 Breaking change (fix ou feature que causa mudança em funcionalidade existente)
-- [ ] 📝 Documentação (mudanças apenas na documentação)
-- [ ] 🎨 Estilo (formatação, ponto e vírgula, etc)
-- [ ] ♻️ Refatoração (mudança de código que não corrige bug nem adiciona feature)
-- [ ] ⚡ Performance (mudança que melhora performance)
-- [ ] ✅ Testes (adição ou correção de testes)
 
-## 🧪 Como Foi Testado?
-Descreva os testes que você executou para verificar suas mudanças.
+- [ ] 🐛 Bug fix (correção que não quebra funcionalidades existentes)
+- [ ] ✨ Nova feature (funcionalidade que não quebra código existente)
+- [ ] 💥 Breaking change (correção ou feature que quebra funcionalidades existentes)
+- [ ] 📝 Documentação
+- [ ] 🎨 Estilo/Formatação
+- [ ] ♻️ Refatoração
+- [ ] ⚡ Performance
+- [ ] ✅ Testes
 
-- [ ] Testado em servidor local
-- [ ] Testado em servidor de produção
-- [ ] Testado com múltiplos jogadores
-- [ ] Testado performance (resmon)
-- [ ] Testado compatibilidade com outros resources
+## ✅ Checklist
+
+- [ ] Testei no servidor FiveM
+- [ ] Verifiquei o console (F8) - sem erros
+- [ ] Testei todas as funcionalidades principais
+- [ ] Verifiquei performance (resmon < 0.10ms)
+- [ ] Atualizei a versão no `fxmanifest.lua` (se necessário)
+- [ ] Atualizei o `CHANGELOG.md`
+- [ ] Atualizei a documentação (README, etc)
+- [ ] Meu código segue o estilo do projeto
+- [ ] Fiz self-review do meu código
+- [ ] Comentei código complexo
+
+## 🧪 Como Testar
+
+Descreva os passos para testar suas mudanças:
+
+1. 
+2. 
+3. 
 
 ## 📸 Screenshots (se aplicável)
-Adicione screenshots para demonstrar as mudanças.
 
-## ✔️ Checklist
-- [ ] Meu código segue o estilo do projeto
-- [ ] Revisei meu próprio código
-- [ ] Comentei código em áreas complexas
-- [ ] Atualizei a documentação
-- [ ] Minhas mudanças não geram novos warnings
-- [ ] Adicionei testes que provam que meu fix funciona ou que minha feature funciona
-- [ ] Testes unitários novos e existentes passam localmente
-- [ ] Atualizei o CHANGELOG.md
+Adicione screenshots ou GIFs mostrando as mudanças.
 
-## 📝 Notas Adicionais
-Qualquer informação adicional relevante para os revisores.
+## 📋 Issues Relacionadas
 
-## 🙏 Agradecimentos
-Mencione qualquer pessoa que ajudou com esta PR.
+Fixes #(issue)
+
+## 🔄 Versão
+
+- Versão atual: 0.1.0
+- Nova versão: 0.x.x (se aplicável)
+
+## 💬 Notas Adicionais
+
+Adicione qualquer informação adicional sobre o PR aqui.
