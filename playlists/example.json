@@ -1,0 +1,21 @@
+{
+  "name": "Example Playlist",
+  "tracks": [
+    {
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "type": "youtube",
+      "addedAt": 1703001600000
+    },
+    {
+      "url": "https://example.com/audio/track1.mp3",
+      "type": "audio",
+      "addedAt": 1703001700000
+    },
+    {
+      "url": "https://example.com/audio/track2.ogg",
+      "type": "audio",
+      "addedAt": 1703001800000
+    }
+  ],
+  "createdAt": 1703001600000
+}

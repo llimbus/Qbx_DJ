@@ -1,0 +1,63 @@
+# FiveM DJ System - .gitignore
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if using any build tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+dist/
+build/
+
+# Config files with sensitive data
+config.local.lua
+secrets.lua
+
+# Backup files
+*.bak
+*.backup
+backup/
+
+# Test files
+test/
+tests/
+*.test.lua
+
+# Documentation drafts
+RESUMO_SESSAO.md
+drafts/
+
+# User data
+playlists/*.json
+!playlists/example.json
+
+# Test and development files
+TESTE_*.txt
+RESUMO_SESSAO.md
+PREPARACAO_GITHUB.txt
+EFEITOS_MELHORADOS.lua
+UPDATE_EFFECTS_FUNCTIONS.lua
+git-upload.ps1
+git-push.ps1

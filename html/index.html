@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Interface</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+</head>
+<body>
+    <div id="app" class="hidden">
+        <!-- DJ CONSOLE MODE -->
+        <div id="dj-interface" class="interface-container hidden">
+            <div class="dj-console">
+                <div class="header">
+                    <h1><i class="fa-solid fa-compact-disc fa-spin"></i> VIRTUAL DJ SYSTEM</h1>
+                    <button class="close-btn" data-target="dj-interface"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="main-controls">
+                    <!-- DECK A -->
+                    <div class="deck" id="deck-a">
+                        <div class="deck-header">DECK A</div>
+                        <div class="disc-container"><div class="disc"></div></div>
+                        <div class="track-info">
+                            <input type="text" id="url-a" placeholder="YouTube or MP3 URL">
+                            <div class="meta-info" id="meta-a">Waiting for track...</div>
+                            <div class="time-display" id="time-a">00:00 / 00:00</div>
+                        </div>
+                        <div class="controls">
+                            <button class="btn-control play-btn" data-deck="a"><i class="fa-solid fa-play"></i></button>
+                            <button class="btn-control pause-btn" data-deck="a"><i class="fa-solid fa-pause"></i></button>
+                            <button class="btn-control stop-btn" data-deck="a"><i class="fa-solid fa-stop"></i></button>
+                        </div>
+                        <div class="fader-group">
+                            <label>VOL</label>
+                            <input type="range" min="0" max="100" value="80" class="slider volume-slider" data-deck="a">
+                        </div>
+                        <div class="eq-group">
+                            <div class="eq-knob"><label>LOW</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="a" data-eq="low"></div>
+                            <div class="eq-knob"><label>MID</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="a" data-eq="mid"></div>
+                            <div class="eq-knob"><label>HIGH</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="a" data-eq="high"></div>
+                        </div>
+                    </div>
+                    <!-- MIXER -->
+                    <div class="mixer">
+                        <div class="vu-meter">
+                            <div class="vu-bar left"></div>
+                            <div class="vu-bar right"></div>
+                        </div>
+                        <div class="crossfader-container">
+                            <label>CROSSFADER</label>
+                            <input type="range" min="0" max="100" value="50" class="slider crossfader">
+                            <div class="labels"><span>A</span><span>B</span></div>
+                        </div>
+                        <div class="master-controls">
+                            <label style="color: #00ffff; font-size: 12px;">BPM: <span id="bpm-display">128</span></label>
+                            <input type="range" id="bpm-slider" min="60" max="180" value="128" class="slider" style="width: 100%; margin: 10px 0;">
+                            <button class="btn-effect" data-effect="scratch">SCRATCH</button>
+                            <button class="btn-effect" data-effect="airhorn">AIRHORN</button>
+                        </div>
+                    </div>
+                    <!-- DECK B -->
+                    <div class="deck" id="deck-b">
+                        <div class="deck-header">DECK B</div>
+                        <div class="disc-container"><div class="disc"></div></div>
+                        <div class="track-info">
+                            <input type="text" id="url-b" placeholder="YouTube or MP3 URL">
+                            <div class="meta-info" id="meta-b">Waiting for track...</div>
+                            <div class="time-display" id="time-b">00:00 / 00:00</div>
+                        </div>
+                        <div class="controls">
+                            <button class="btn-control play-btn" data-deck="b"><i class="fa-solid fa-play"></i></button>
+                            <button class="btn-control pause-btn" data-deck="b"><i class="fa-solid fa-pause"></i></button>
+                            <button class="btn-control stop-btn" data-deck="b"><i class="fa-solid fa-stop"></i></button>
+                        </div>
+                        <div class="fader-group">
+                            <label>VOL</label>
+                            <input type="range" min="0" max="100" value="80" class="slider volume-slider" data-deck="b">
+                        </div>
+                        <div class="eq-group">
+                            <div class="eq-knob"><label>LOW</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="b" data-eq="low"></div>
+                            <div class="eq-knob"><label>MID</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="b" data-eq="mid"></div>
+                            <div class="eq-knob"><label>HIGH</label><input type="range" min="-10" max="10" value="0" class="knob" data-deck="b" data-eq="high"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STAGE BUILDER MODE -->
+        <div id="builder-interface" class="interface-container hidden">
+            <div class="builder-panel">
+                <div class="header">
+                    <h1><i class="fa-solid fa-hammer"></i> STAGE BUILDER</h1>
+                    <button class="close-btn" data-target="builder-interface"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="stage">PROPS</button>
+                        <button class="tab-btn" data-tab="effects">EFFECTS</button>
+                        <button class="tab-btn" data-tab="playlist">PLAYLIST</button>
+                    </div>
+                    <div class="tab-content active" id="stage">
+                        <div class="grid-items">
+                            <!-- DJ Equipment -->
+                            <div class="grid-item" data-prop="prop_dj_deck_01">
+                                <i class="fa-solid fa-music"></i>
+                                <span>DJ Table</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_speaker_06">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>Speaker Grande</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_speaker_05">
+                                <i class="fa-solid fa-volume-up"></i>
+                                <span>Speaker Médio</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_speaker_08">
+                                <i class="fa-solid fa-volume-down"></i>
+                                <span>Subwoofer</span>
+                            </div>
+                            
+                            <!-- Stage Lights -->
+                            <div class="grid-item" data-prop="prop_spot_01">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span>Spotlight</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_worklight_03b">
+                                <i class="fa-solid fa-sun"></i>
+                                <span>Work Light</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_worklight_04c">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>Strobe Light</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_tv_flat_01">
+                                <i class="fa-solid fa-tv"></i>
+                                <span>LED Screen</span>
+                            </div>
+                            
+                            <!-- Effects Equipment -->
+                            <div class="grid-item" data-prop="prop_air_bigradar">
+                                <i class="fa-solid fa-smog"></i>
+                                <span>Smoke Machine</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_air_towbar_01">
+                                <i class="fa-solid fa-wind"></i>
+                                <span>CO2 Jet</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_air_bigradar_l2">
+                                <i class="fa-solid fa-cloud"></i>
+                                <span>Fog Machine</span>
+                            </div>
+                            
+                            <!-- Bar & Furniture -->
+                            <div class="grid-item" data-prop="prop_bar_stool_01">
+                                <i class="fa-solid fa-chair"></i>
+                                <span>Banqueta Bar</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_bar_pump_06">
+                                <i class="fa-solid fa-beer"></i>
+                                <span>Torneira Cerveja</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_table_03">
+                                <i class="fa-solid fa-table"></i>
+                                <span>Mesa Redonda</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_table_04">
+                                <i class="fa-solid fa-table-cells"></i>
+                                <span>Mesa Quadrada</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_table_06">
+                                <i class="fa-solid fa-table"></i>
+                                <span>Mesa VIP</span>
+                            </div>
+                            
+                            <!-- Dance Floor & Decoration -->
+                            <div class="grid-item" data-prop="prop_barrier_work05">
+                                <i class="fa-solid fa-road-barrier"></i>
+                                <span>Barreira</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_beach_fire">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>Fire Pit</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_tv_flat_michael">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>TV Grande</span>
+                            </div>
+                            <div class="grid-item" data-prop="prop_neon_01">
+                                <i class="fa-solid fa-lightbulb"></i>
+                                <span>Neon Light</span>
+                            </div>
+                            
+                            <!-- Utility -->
+                            <div class="grid-item" data-action="delete_last">
+                                <i class="fa-solid fa-trash"></i>
+                                <span>Remove Last</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="effects">
+                        <div class="grid-items">
+                            <div class="grid-item" data-visual="fireworks">
+                                <i class="fa-solid fa-explosion"></i>
+                                <span>Fireworks</span>
+                            </div>
+                            <div class="grid-item" data-visual="smoke">
+                                <i class="fa-solid fa-smog"></i>
+                                <span>Smoke Machine</span>
+                            </div>
+                            <div class="grid-item" data-visual="lasers">
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>Lasers</span>
+                            </div>
+                            <div class="grid-item" data-visual="confetti">
+                                <i class="fa-solid fa-wind"></i>
+                                <span>Confetti</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="playlist">
+                        <div class="playlist-container">
+                            <div class="playlist-header">
+                                <input type="text" id="playlist-name" placeholder="Nome da Playlist" value="My Playlist">
+                                <div class="playlist-controls">
+                                    <button class="btn-playlist" id="btn-shuffle" title="Shuffle">
+                                        <i class="fa-solid fa-shuffle"></i>
+                                    </button>
+                                    <button class="btn-playlist" id="btn-repeat" title="Repeat">
+                                        <i class="fa-solid fa-repeat"></i>
+                                    </button>
+                                    <button class="btn-playlist" id="btn-save-playlist" title="Salvar Playlist">
+                                        <i class="fa-solid fa-save"></i>
+                                    </button>
+                                    <button class="btn-playlist" id="btn-load-playlist" title="Carregar Playlist">
+                                        <i class="fa-solid fa-folder-open"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="add-track-section">
+                                <input type="text" id="new-track-url" placeholder="YouTube URL ou MP3 URL">
+                                <button class="btn-add-track" id="btn-add-track">
+                                    <i class="fa-solid fa-plus"></i> Adicionar
+                                </button>
+                            </div>
+                            <div class="playlist-tracks" id="playlist-tracks">
+                                <div class="no-tracks-message">
+                                    <i class="fa-solid fa-music"></i>
+                                    <p>Nenhuma música na playlist. Adicione URLs acima.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EFFECT CONFIGURATION MODAL -->
+        <div id="effect-config-modal" class="modal hidden">
+            <div class="modal-content effect-config">
+                <div class="modal-header">
+                    <h2><i class="fa-solid fa-sliders"></i> Configure Effect</h2>
+                    <button class="close-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="config-tabs">
+                    <button class="config-tab-btn active" data-config-tab="lights">
+                        <i class="fa-solid fa-lightbulb"></i> Stage Lights
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="lasers">
+                        <i class="fa-solid fa-bolt"></i> Laser Show
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="smoke">
+                        <i class="fa-solid fa-smog"></i> Smoke Machine
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="confetti">
+                        <i class="fa-solid fa-star"></i> Confetti
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="bubbles">
+                        <i class="fa-solid fa-circle"></i> Bubbles
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="pyro">
+                        <i class="fa-solid fa-fire"></i> Pyrotechnics
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="co2">
+                        <i class="fa-solid fa-wind"></i> CO2 Jets
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="uv">
+                        <i class="fa-solid fa-sun"></i> UV Lights
+                    </button>
+                    <button class="config-tab-btn" data-config-tab="none">
+                        <i class="fa-solid fa-ban"></i> None
+                    </button>
+                </div>
+
+                <!-- STAGE LIGHTS CONFIG -->
+                <div class="config-panel active" id="config-lights">
+                    <div class="config-group">
+                        <label>Light Color</label>
+                        <input type="color" id="light-color" value="#00ffff">
+                    </div>
+                    <div class="config-group">
+                        <label>Pattern</label>
+                        <select id="light-mode">
+                            <option value="movinghead">Moving Head</option>
+                            <option value="strobe">Strobe</option>
+                            <option value="wash">Wash Light</option>
+                            <option value="disco">Disco Ball</option>
+                            <option value="scanner">Scanner</option>
+                            <option value="chase">Chase Lights</option>
+                            <option value="rainbow">Rainbow Cycle</option>
+                            <option value="pulse">Pulse</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Intensity: <span id="light-intensity-val">5.0</span></label>
+                        <input type="range" id="light-intensity" min="1" max="20" value="5" step="0.5">
+                    </div>
+                    <div class="config-group">
+                        <label>Speed: <span id="light-speed-val">1.0x</span></label>
+                        <input type="range" id="light-speed" min="0.1" max="5" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="light-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- LASER SHOW CONFIG -->
+                <div class="config-panel" id="config-lasers">
+                    <div class="config-group">
+                        <label>Laser Color</label>
+                        <input type="color" id="laser-color" value="#00ff00">
+                    </div>
+                    <div class="config-group">
+                        <label>Pattern</label>
+                        <select id="laser-pattern">
+                            <option value="beams">Laser Beams</option>
+                            <option value="grid">Grid Pattern</option>
+                            <option value="spiral">Spiral</option>
+                            <option value="random">Random Sweep</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Beam Count: <span id="laser-count-val">4</span></label>
+                        <input type="range" id="laser-count" min="2" max="12" value="4" step="1">
+                    </div>
+                    <div class="config-group">
+                        <label>Speed: <span id="laser-speed-val">1.0x</span></label>
+                        <input type="range" id="laser-speed" min="0.1" max="5" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="laser-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- SMOKE MACHINE CONFIG -->
+                <div class="config-panel" id="config-smoke">
+                    <div class="config-group">
+                        <label>Smoke Color</label>
+                        <input type="color" id="smoke-color" value="#ffffff">
+                    </div>
+                    <div class="config-group">
+                        <label>Density: <span id="smoke-density-val">1.0</span></label>
+                        <input type="range" id="smoke-density" min="0.1" max="3" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label>Mode</label>
+                        <select id="smoke-mode">
+                            <option value="continuous">Continuous</option>
+                            <option value="burst">Burst</option>
+                            <option value="ground">Ground Fog</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="smoke-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CONFETTI CONFIG -->
+                <div class="config-panel" id="config-confetti">
+                    <div class="config-group">
+                        <label>Confetti Style</label>
+                        <select id="confetti-style">
+                            <option value="colorful">Colorful Mix</option>
+                            <option value="gold">Gold</option>
+                            <option value="silver">Silver</option>
+                            <option value="rainbow">Rainbow</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Intensity: <span id="confetti-intensity-val">1.0</span></label>
+                        <input type="range" id="confetti-intensity" min="0.5" max="3" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label>Mode</label>
+                        <select id="confetti-mode">
+                            <option value="cannon">Confetti Cannon</option>
+                            <option value="rain">Confetti Rain</option>
+                            <option value="burst">Burst</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Frequency: <span id="confetti-freq-val">3s</span></label>
+                        <input type="range" id="confetti-frequency" min="1" max="10" value="3" step="0.5">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="confetti-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- BUBBLES CONFIG -->
+                <div class="config-panel" id="config-bubbles">
+                    <div class="config-group">
+                        <label>Bubble Size</label>
+                        <select id="bubble-size">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Amount: <span id="bubble-amount-val">1.0</span></label>
+                        <input type="range" id="bubble-amount" min="0.5" max="3" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label>Mode</label>
+                        <select id="bubble-mode">
+                            <option value="continuous">Continuous</option>
+                            <option value="burst">Burst</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="bubble-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PYROTECHNICS CONFIG -->
+                <div class="config-panel" id="config-pyro">
+                    <div class="config-group">
+                        <label>Flame Color</label>
+                        <input type="color" id="pyro-color" value="#ff4400">
+                    </div>
+                    <div class="config-group">
+                        <label>Effect Type</label>
+                        <select id="pyro-type">
+                            <option value="flame">Flame Thrower</option>
+                            <option value="firework">Firework</option>
+                            <option value="sparkler">Sparkler</option>
+                            <option value="fountain">Fountain</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Intensity: <span id="pyro-intensity-val">1.0</span></label>
+                        <input type="range" id="pyro-intensity" min="0.5" max="3" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label>Height: <span id="pyro-height-val">3.0m</span></label>
+                        <input type="range" id="pyro-height" min="1" max="10" value="3" step="0.5">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="pyro-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- CO2 JETS CONFIG -->
+                <div class="config-panel" id="config-co2">
+                    <div class="config-group">
+                        <label>Jet Mode</label>
+                        <select id="co2-mode">
+                            <option value="vertical">Vertical Blast</option>
+                            <option value="horizontal">Horizontal Blast</option>
+                            <option value="burst">Burst</option>
+                            <option value="continuous">Continuous</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Pressure: <span id="co2-pressure-val">1.0</span></label>
+                        <input type="range" id="co2-pressure" min="0.5" max="3" value="1" step="0.1">
+                    </div>
+                    <div class="config-group">
+                        <label>Duration: <span id="co2-duration-val">2.0s</span></label>
+                        <input type="range" id="co2-duration" min="0.5" max="5" value="2" step="0.5">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="co2-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- UV LIGHTS CONFIG -->
+                <div class="config-panel" id="config-uv">
+                    <div class="config-group">
+                        <label>UV Color</label>
+                        <input type="color" id="uv-color" value="#9900ff">
+                    </div>
+                    <div class="config-group">
+                        <label>Pattern</label>
+                        <select id="uv-pattern">
+                            <option value="static">Static Glow</option>
+                            <option value="pulse">Pulse</option>
+                            <option value="wave">Wave</option>
+                            <option value="strobe">Strobe</option>
+                        </select>
+                    </div>
+                    <div class="config-group">
+                        <label>Intensity: <span id="uv-intensity-val">5.0</span></label>
+                        <input type="range" id="uv-intensity" min="1" max="20" value="5" step="0.5">
+                    </div>
+                    <div class="config-group">
+                        <label>Range: <span id="uv-range-val">15m</span></label>
+                        <input type="range" id="uv-range" min="5" max="30" value="15" step="1">
+                    </div>
+                    <div class="config-group">
+                        <label style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="uv-sync-music" style="width: auto; height: auto;">
+                            Sync with Music Beat
+                        </label>
+                    </div>
+                </div>
+
+                <!-- NONE CONFIG -->
+                <div class="config-panel" id="config-none">
+                    <p style="text-align: center; color: #888; padding: 40px;">No effects will be applied to this prop.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-confirm" id="confirm-effect-config">
+                        <i class="fa-solid fa-check"></i> Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- EFFECT MANAGER MODAL (Multiple Effects) -->
+        <div id="effect-manager-modal" class="modal hidden">
+            <div class="modal-content effect-manager">
+                <div class="modal-header">
+                    <h2><i class="fa-solid fa-layer-group"></i> Gerenciar Efeitos</h2>
+                    <button class="close-modal-btn" id="close-effect-manager"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="manager-body">
+                    <div class="effects-list-container">
+                        <h3>Efeitos Ativos</h3>
+                        <div id="active-effects-list" class="effects-list">
+                            <!-- Será preenchido dinamicamente -->
+                            <div class="no-effects-message">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <p>Nenhum efeito ativo. Clique em "Adicionar Efeito" para começar.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="manager-actions">
+                        <button class="btn-add-effect" id="add-new-effect-btn">
+                            <i class="fa-solid fa-plus"></i> Adicionar Efeito
+                        </button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-secondary" id="close-manager-btn">
+                        <i class="fa-solid fa-xmark"></i> Fechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden YouTube Players -->
+    <div id="youtube-player-a" style="display:none;"></div>
+    <div id="youtube-player-b" style="display:none;"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
